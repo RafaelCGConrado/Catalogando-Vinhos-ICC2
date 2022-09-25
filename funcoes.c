@@ -3,10 +3,9 @@
 #include <string.h> 
 #include "funcoes.h"
 
-struct vinhos{
-    double id, citric_acid, 
-    residual_sugar, density, pH, alcohol;
-};
+
+
+
 
 char *readline(FILE *stream){
     char *str = NULL;
@@ -44,7 +43,28 @@ char *recorta_string(char *str, char *delimitador){
 
 }
 
-void ordena(VINHO *p, int tamanho){
+// void ordena(VINHO *p, int tamanho){
 
     
+// }
+
+int conta_vinhos(FILE *stream){
+    
+
+    int tamanho = 0;
+    while(!feof(stream)){
+        char *str = readline(stream);
+        tamanho++;
+    }
+    //retornamos (tamanho-2) para "ignorar" o cabeçalho 
+    return (tamanho-2);
+
+}
+
+
+
+void ordena(VINHO *arr, int tamanho){
+    
+
+
 }

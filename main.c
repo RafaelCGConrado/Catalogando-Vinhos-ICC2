@@ -6,34 +6,51 @@
 
 int main(){
     FILE *arq = fopen("vinho.csv", "r");
-    VINHO *v = cria_vetor();
+    VINHO *arr = cria_vetor();
     
     
 
-    int tam_vetor = 1;
+    int tam_vetor = 0;
 
-    //leitura do arquivo
+    //leitura do arquivo OBS TRANSFORMAR EM FUNÇÃO URGENTEMENTE
     char *str = readline(arq);
-    double valor;
+    char *token;
     while(!feof(arq)){
+        
         str = readline(arq);
-        char *token = strtok(str, ",");
+        
+        token = strtok(str, ",");
+        arr[tam_vetor].id = atoi(token);
 
-        while(token != NULL){
-            
-            valor = atof(token);
-            printf("%lf\n", valor);
-            token = strtok(NULL, ",");
+        token = strtok(NULL, ",");
+        arr[tam_vetor].citric_acid = atof(token);
 
-        }
+        token = strtok(NULL, ",");
+        arr[tam_vetor].residual_sugar = atof(token);
+        
+        token = strtok(NULL, ",");
+        arr[tam_vetor].density = atof(token);
+        
+        token = strtok(NULL, ",");
+        arr[tam_vetor].pH = atof(token);
 
-    } 
-    
+        
+        token = strtok(NULL, ",");
+        arr[tam_vetor].alcohol = atof(token);
 
-    //PRECISO LER LINHA POR LINHA, USAR STRTOK PARA RECORTAR A STRING DA LINHA,
-    //CONVERTER CADA SUBSTRING PARA DOUBLE E ARMAZENAR NO VETOR
+
+        tam_vetor++;
+
+        arr = realloc(arr, (tam_vetor + 1) * sizeof(VINHO));
+
+    }
+
+
+    //PROXIMO PASSO: ORDENAR ESSA BAGAÇA
+
 
     fclose(arq);
+    free(arr);
 
     return 0;
 

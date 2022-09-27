@@ -68,3 +68,59 @@ void ordena(VINHO *arr, int tamanho){
 
 
 }
+
+
+int readfile(FILE *stream, VINHO *arr){
+
+       
+    char *str, *token;
+    str = readline(stream);
+    int tam_vetor = 0;
+    
+    while(!feof(stream)){
+        
+        str = readline(stream);
+        
+        token = strtok(str, ",");
+        arr[tam_vetor].id = atoi(token);
+
+        token = strtok(NULL, ",");
+        arr[tam_vetor].citric_acid = atof(token);
+
+        token = strtok(NULL, ",");
+        arr[tam_vetor].residual_sugar = atof(token);
+        
+        token = strtok(NULL, ",");
+        arr[tam_vetor].density = atof(token);
+        
+        token = strtok(NULL, ",");
+        arr[tam_vetor].pH = atof(token);
+
+        
+        token = strtok(NULL, ",");
+        arr[tam_vetor].alcohol = atof(token);
+
+
+        tam_vetor++;
+
+        arr = realloc(arr, (tam_vetor + 1) * sizeof(VINHO));
+
+    }
+    
+    return tam_vetor;
+
+}
+
+void printa_vinhos(VINHO *arr, int tam){
+
+      for(int i = 0; i < tam; i++){
+        printf("%d:\n", arr[i].id);
+        printf("%lf\n", arr[i].citric_acid);
+        printf("%lf\n", arr[i].residual_sugar);
+        printf("%lf\n", arr[i].density);
+        printf("%lf\n", arr[i].pH);
+        printf("\n\n");
+    
+    
+    }
+}

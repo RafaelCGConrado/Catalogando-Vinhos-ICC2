@@ -18,10 +18,13 @@ char *recorta_string(char *str, char *delimitador);
 
 void ordena(VINHO *p, int tamanho);
 
-void readfile(FILE *stream);
+int readfile(FILE *stream, VINHO *arr);
+ 
 
 int conta_vinhos(FILE *stream);
 //CONTA A QUANTIDADE DE VINHOS PRESENTES NO ARQUIVO
 
 // void ordena(VINHO *arr);
     //prototipo
+
+void printa_vinhos(VINHO *arr, int tam);

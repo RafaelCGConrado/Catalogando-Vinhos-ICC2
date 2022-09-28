@@ -44,12 +44,20 @@ int main(){
         arr = realloc(arr, (tam_vetor + 1) * sizeof(VINHO));
 
     }
+    fclose(arq);
+
+    
+    char caracteristica[20];
+    int i = compara_caracteristica(caracteristica);
+    printf("%d", i);
+
+    
 
 
     //PROXIMO PASSO: ORDENAR ESSA BAGAÇA
 
 
-    fclose(arq);
+    
     free(arr);
 
     return 0;

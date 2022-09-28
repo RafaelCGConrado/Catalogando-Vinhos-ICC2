@@ -1,70 +1,6 @@
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "funcoes.h"
-
-
-int main(){
-    FILE *arq = fopen("vinho.csv", "r");
-    VINHO *arr = cria_vetor();
-    
-    
-
-    int tam_vetor = 0;
-
-    //leitura do arquivo OBS TRANSFORMAR EM FUNÇÃO URGENTEMENTE
-    char *str = readline(arq);
-    char *token;
-    while(!feof(arq)){
-        
-        str = readline(arq);
-        
-        token = strtok(str, ",");
-        arr[tam_vetor].id = atoi(token);
-
-        token = strtok(NULL, ",");
-        arr[tam_vetor].citric_acid = atof(token);
-
-        token = strtok(NULL, ",");
-        arr[tam_vetor].residual_sugar = atof(token);
-        
-        token = strtok(NULL, ",");
-        arr[tam_vetor].density = atof(token);
-        
-        token = strtok(NULL, ",");
-        arr[tam_vetor].pH = atof(token);
-
-        
-        token = strtok(NULL, ",");
-        arr[tam_vetor].alcohol = atof(token);
-
-
-        tam_vetor++;
-
-        arr = realloc(arr, (tam_vetor + 1) * sizeof(VINHO));
-
-    }
-    fclose(arq);
-
-    
-    char caracteristica[20];
-    int i = compara_caracteristica(caracteristica);
-    printf("%d", i);
-
-    
-
-
-    //PROXIMO PASSO: ORDENAR ESSA BAGAÇA
-
-
-    
-    free(arr);
-
-    return 0;
-
-    
-}   #include <string.h> 
+#include <string.h> 
 #include "funcoes.h"
 
 
@@ -127,24 +63,19 @@ int conta_vinhos(FILE *stream){
 
 
 
-void ordena(VINHO *arr, int tamanho){
-    
 
-
-}
 
 
 int readfile(FILE *stream, VINHO *arr){
 
-       
-    char *str, *token;
-    str = readline(stream);
+    
     int tam_vetor = 0;
+    char *str = readline(stream);
+    char *token;
     
     while(!feof(stream)){
         
-        str = readline(stream);
-        
+        str=readline(stream);
         token = strtok(str, ",");
         arr[tam_vetor].id = atoi(token);
 
@@ -188,3 +119,68 @@ void printa_vinhos(VINHO *arr, int tam){
     
     }
 }
+
+int compara_caracteristica(char *caracteristica){
+
+    if(strcmp(caracteristica, "citric_acid") == 0) return 1;
+    if(strcmp(caracteristica, "residual_sugar") == 0) return 2;
+    if(strcmp(caracteristica, "density") == 0) return 3;
+    if(strcmp(caracteristica, "pH") == 0) return 4;
+    if(strcmp(caracteristica, "alcohol") == 0) return 5;
+
+}
+
+void ordena_geral(VINHO *arr, int tamanho, int caract){
+
+    switch(caract){
+        case 1:
+
+
+        case 2:
+
+
+        case 3:
+
+
+        case 4:
+
+
+        case 5:
+
+
+
+    }
+    
+
+
+}
+
+void ordena_acid(VINHO *arr, int tamanho){
+
+    double maior = arr[0].citric_acid;
+    int index_maior = 0;
+
+    for(int i = 1; i < tamanho; i++){
+        if(arr[i].citric_acid > maior){
+            maior = arr[i].citric_acid;
+            index_maior = i;
+        }
+        
+        
+        if(arr[i].citric_acid == maior){
+            if(arr[index_maior].id < arr[i].id){
+                 maior = arr[i].citric_acid;
+                 index_maior = i;
+            }
+        }
+    }
+
+    //localizada a maior chave, trocar de valor com o último elemento 
+    
+
+
+
+
+
+}
+

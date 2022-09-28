@@ -14,17 +14,15 @@ char *readline(FILE *stream);
 VINHO *cria_vetor();
 //cria vetor do tipo VINHO
 
-char *recorta_string(char *str, char *delimitador);
-
-void ordena(VINHO *p, int tamanho);
-
 int readfile(FILE *stream, VINHO *arr);
+//lê o arquivo csv inteiro, retorna a quantidade de vinhos
+//e armazena todas as características de cada um deles em um vetor
  
-
-int conta_vinhos(FILE *stream);
-//CONTA A QUANTIDADE DE VINHOS PRESENTES NO ARQUIVO
-
-// void ordena(VINHO *arr);
-    //prototipo
-
 void printa_vinhos(VINHO *arr, int tam);
+//printa todos os vinhos e suas características
+//usada apenas para testes
+
+int compara_caracteristica(char *caracteristica);
+
+void ordena_geral(VINHO *p, int tamanho, char *caracteristica);
+

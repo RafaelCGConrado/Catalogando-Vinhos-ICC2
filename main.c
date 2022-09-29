@@ -48,8 +48,8 @@ int main(){
 
     
     char caracteristica[20];
-    int i = compara_caracteristica(caracteristica);
-    printf("%d", i);
+    scanf("%s", caracteristica);
+    
 
     
 

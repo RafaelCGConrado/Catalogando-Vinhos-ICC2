@@ -11,6 +11,11 @@ char *readline(FILE *stream){
     char *str = NULL;
     int n_char = 0;
      
+     //Aqui, pegaremos char por char do fluxo de entrada
+     //e iremos fazer as devidas comparações
+     //caso não seja quebra de linha, armazenamos
+     //o char na string e aumentamos seu tamanho
+     //para que a leitura prossiga.
      while(1){
         char c = fgetc(stream);
         
@@ -33,48 +38,28 @@ char *readline(FILE *stream){
 
 VINHO *cria_vetor(){
 
+    //aqui, apenas criamos o vetor e alocamos o espaço de 
+    //memória necessário
     VINHO *p = (VINHO *) malloc(1 * sizeof(VINHO));
     if(p) return p;
     return NULL;
 
 }
 
-char *recorta_string(char *str, char *delimitador){
-
-}
-
-// void ordena(VINHO *p, int tamanho){
-
-    
-// }
-
-int conta_vinhos(FILE *stream){
-    
-
-    int tamanho = 0;
-    while(!feof(stream)){
-        char *str = readline(stream);
-        tamanho++;
-    }
-    //retornamos (tamanho-2) para "ignorar" o cabeçalho 
-    return (tamanho-2);
-
-}
-
-
-
-
-
-
 int readfile(FILE *stream, VINHO *arr){
+
 
     
     int tam_vetor = 0;
     char *str = readline(stream);
+    //Primeiro, lemos a primeira linha do arquivo e a desconsideramos
     char *token;
     
     while(!feof(stream)){
         
+        //aqui, lemos a linha seguinte e vamos dividindo-na em partes,
+        //pegando o conteúdo entra as vírgulas e armazenando
+        //na respectiva característica do vetor.
         str=readline(stream);
         token = strtok(str, ",");
         arr[tam_vetor].id = atoi(token);
@@ -95,7 +80,10 @@ int readfile(FILE *stream, VINHO *arr){
         token = strtok(NULL, ",");
         arr[tam_vetor].alcohol = atof(token);
 
-
+        //depois de lermos a linha inteira, precisamos aumentar a
+        //variavel tam_vetor, que conta o tamanho do vetor/quantidade
+        //de vinhos, informação importante no realloc e também
+        //em outras partes do programa.
         tam_vetor++;
 
         arr = realloc(arr, (tam_vetor + 1) * sizeof(VINHO));
@@ -108,6 +96,7 @@ int readfile(FILE *stream, VINHO *arr){
 
 void printa_vinhos(VINHO *arr, int tam){
 
+        //função básica para printar os registros.
       for(int i = 0; i < tam; i++){
         printf("%d:\n", arr[i].id);
         printf("%lf\n", arr[i].citric_acid);
@@ -120,66 +109,60 @@ void printa_vinhos(VINHO *arr, int tam){
     }
 }
 
-int compara_caracteristica(char *caracteristica){
+double compara_caracteristica(char *caracteristica, VINHO *arr, int j){
 
-    if(strcmp(caracteristica, "citric_acid") == 0) return 1;
-    if(strcmp(caracteristica, "residual_sugar") == 0) return 2;
-    if(strcmp(caracteristica, "density") == 0) return 3;
-    if(strcmp(caracteristica, "pH") == 0) return 4;
-    if(strcmp(caracteristica, "alcohol") == 0) return 5;
-
-}
-
-void ordena_geral(VINHO *arr, int tamanho, int caract){
-
-    switch(caract){
-        case 1:
-
-
-        case 2:
-
-
-        case 3:
-
-
-        case 4:
-
-
-        case 5:
-
-
-
-    }
+    //essa função é de extrema importancia para a ordenação, visto que
+    //ela permitirá o reaproveitamento do código. Caso contrário, seriam
+    //necessárias as repetidas funções de ordenação, com apenas a característica
+    //a ser comparada tendo sido modificada em cada uma delas.
+    if(strcmp(caracteristica, "citric_acid") == 0) return arr[j].citric_acid;
+    if(strcmp(caracteristica, "residual_sugar") == 0) return arr[j].residual_sugar;
+    if(strcmp(caracteristica, "density") == 0) return arr[j].density;
+    if(strcmp(caracteristica, "pH") == 0) return arr[j].pH;
+    if(strcmp(caracteristica, "alcohol") == 0) return arr[j].alcohol;
+    //de maneira simples, comparamos a caracteristica desejada  pelo usuario
+    //em uma busca e retornamos o valor da característica em questão
+    //para determinada posição j do vetor de vinhos.
     
 
-
 }
 
-void ordena_acid(VINHO *arr, int tamanho){
 
-    double maior = arr[0].citric_acid;
-    int index_maior = 0;
+void ordena(VINHO *arr, int tamanho, char *caracteristica){
 
-    for(int i = 1; i < tamanho; i++){
-        if(arr[i].citric_acid > maior){
-            maior = arr[i].citric_acid;
-            index_maior = i;
-        }
-        
-        
-        if(arr[i].citric_acid == maior){
-            if(arr[index_maior].id < arr[i].id){
-                 maior = arr[i].citric_acid;
-                 index_maior = i;
+    //A cada iteração do laço exterior, o tamanho diminui
+    //(já que queremos trocar de posição com o ultimo elemento do
+    //vetor, depois com o penúltimo, ...)
+    for(int i = 0; i < tamanho; tamanho--){
+
+        double maior_val = 0;
+        int index_maior_val = 0;
+        //o importante aqui será armazenar a posição da maior chave
+        //para que a troca possa ser efetuada depois.
+
+        for(int j = 0; j < tamanho; j++){
+            double val_atual = compara_caracteristica(caracteristica, arr, j);
+            if(val_atual > maior_val){
+                index_maior_val = j;
             }
+
+            //critério de desempate: O elemento de maior id
+            //fica como o "maior" em ordem crescente.
+            if(val_atual == maior_val){
+                if(arr[j].id > arr[index_maior_val].id){
+                    index_maior_val = j;
+                }
+            }
+
+
         }
+
+        //tendo a posição da maior chave, podemos efetuar a troca
+        VINHO aux = arr[tamanho];
+        arr[tamanho] = arr[index_maior_val];
+        arr[index_maior_val] = aux;
+
     }
-
-    //localizada a maior chave, trocar de valor com o último elemento 
-    
-
-
-
 
 
 }

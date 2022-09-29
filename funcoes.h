@@ -22,7 +22,8 @@ void printa_vinhos(VINHO *arr, int tam);
 //printa todos os vinhos e suas características
 //usada apenas para testes
 
-int compara_caracteristica(char *caracteristica);
+double compara_caracteristica(char *caracteristica, VINHO *arr, int j);
 
-void ordena_geral(VINHO *p, int tamanho, char *caracteristica);
+void ordena(VINHO *p, int tamanho, char *caracteristica);
 
+void busca_bin();

@@ -26,4 +26,6 @@ double compara_caracteristica(char *caracteristica, VINHO *arr, int j);
 
 void ordena(VINHO *p, int tamanho, char *caracteristica);
 
-void busca_bin();
+int busca_bin(VINHO *arr, int inicio, int fim, double chave, char *caracteristica, int *qtd);
+
+void printa(VINHO *arr, int i);

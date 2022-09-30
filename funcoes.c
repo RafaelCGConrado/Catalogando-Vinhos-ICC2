@@ -144,11 +144,13 @@ void ordena(VINHO *arr, int tamanho, char *caracteristica){
         for(int j = 0; j < tamanho; j++){
             double val_atual = compara_caracteristica(caracteristica, arr, j);
             if(val_atual > maior_val){
+                maior_val = val_atual;
                 index_maior_val = j;
             }
 
             //critério de desempate: O elemento de maior id
-            //fica como o "maior" em ordem crescente.
+            //fica como o "maior" em ordem crescente em relação
+            //a categoria escolhida
             if(val_atual == maior_val){
                 if(arr[j].id > arr[index_maior_val].id){
                     index_maior_val = j;
@@ -158,7 +160,8 @@ void ordena(VINHO *arr, int tamanho, char *caracteristica){
 
         }
 
-        //tendo a posição da maior chave, podemos efetuar a troca
+        //tendo a posição da maior chave, podemos efetuar a troca do 
+        //"maior" vinho com o último, depois com o penúltimo, etc...
         VINHO aux = arr[tamanho-1];
         arr[tamanho-1] = arr[index_maior_val];
         arr[index_maior_val] = aux;
@@ -170,3 +173,49 @@ void ordena(VINHO *arr, int tamanho, char *caracteristica){
 
 }
 
+
+int busca_bin(VINHO *arr, int inicio, int fim, double chave, char *caracteristica, int *qtd){
+
+    int centro = (int) (inicio + fim) / 2;
+    
+
+    if(chave == compara_caracteristica(caracteristica, arr, centro)){
+        int i = centro, menor_chave = centro, count = 0;
+        while(i >= inicio){
+
+            if(chave == compara_caracteristica(caracteristica, arr, i)){
+                count ++;
+                menor_chave = i;
+            }
+            i--;
+
+        }
+
+        i = centro + 1;
+        while(i <= fim){
+
+            if(chave == compara_caracteristica(caracteristica, arr, i)) count++;
+            i++;
+        }
+       
+        *qtd = count;
+        return menor_chave;
+        // return centro;
+    }
+
+    if(inicio > fim) return -1;
+
+    if(chave < compara_caracteristica(caracteristica, arr, centro)){
+        return busca_bin(arr, inicio, centro-1, chave, caracteristica, qtd);
+    }
+
+    if(chave >  compara_caracteristica(caracteristica, arr, centro)){
+        return busca_bin(arr, centro +1, fim, chave, caracteristica, qtd);
+    }
+}
+
+void printa(VINHO *arr, int i){
+    printf("ID: %d, Citric Acid: %lf, Residual Sugar: %lf, Density: %lf, pH: %lf, Alcohol: %lf\n", 
+    arr[i].id, arr[i].citric_acid, arr[i].residual_sugar, arr[i].density, arr[i].pH, arr[i].alcohol);
+
+}

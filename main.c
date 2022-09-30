@@ -5,14 +5,17 @@
 
 
 int main(){
-    FILE *arq = fopen("vinho.csv", "r");
+    
+    char nome_arquivo[20];
+    scanf("%s", nome_arquivo);
+    FILE *arq = fopen(nome_arquivo, "r");
     VINHO *arr = cria_vetor();
     
     
 
     int tam_vetor = 0;
 
-    //leitura do arquivo OBS TRANSFORMAR EM FUNÇÃO URGENTEMENTE
+
     char *str = readline(arq);
     char *token;
     while(!feof(arq)){
@@ -46,18 +49,28 @@ int main(){
     }
     fclose(arq);
 
-    printa_vinhos(arr, tam_vetor);
+    int n, pos, qtd = 0;
     char caracteristica[20];
-    scanf("%s", caracteristica);
+    double chave;
 
-    ordena(arr, tam_vetor, caracteristica);
-    printa_vinhos(arr, tam_vetor);
-    
+    scanf("%d", &n);
 
-    
+    for(int i = 0; i < n; i++){
+        scanf("%s", caracteristica);
+        scanf("%lf", &chave);
+        ordena(arr, tam_vetor, caracteristica);
+        pos = busca_bin(arr, 0, tam_vetor-1, chave, caracteristica, &qtd);
+        if(pos != -1){
+            printa(arr, pos);
+            printf("Total de vinhos encontrados: %d\n", qtd);
+        }
+        else{
+            printf("Nenhum vinho encontrado\n");
+        }
+
+    }
 
 
-    //PROXIMO PASSO: ORDENAR ESSA BAGAÇA
 
 
     

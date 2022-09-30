@@ -99,10 +99,11 @@ void printa_vinhos(VINHO *arr, int tam){
         //função básica para printar os registros.
       for(int i = 0; i < tam; i++){
         printf("%d:\n", arr[i].id);
-        printf("%lf\n", arr[i].citric_acid);
-        printf("%lf\n", arr[i].residual_sugar);
-        printf("%lf\n", arr[i].density);
-        printf("%lf\n", arr[i].pH);
+        printf("Citric_Acid: %lf\n", arr[i].citric_acid);
+        printf("Residual_Sugar: %lf\n", arr[i].residual_sugar);
+        printf("Density: %lf\n", arr[i].density);
+        printf("pH: %lf\n", arr[i].pH);
+        printf("Alcohol: %lf\n", arr[i].alcohol);
         printf("\n\n");
     
     
@@ -133,7 +134,7 @@ void ordena(VINHO *arr, int tamanho, char *caracteristica){
     //A cada iteração do laço exterior, o tamanho diminui
     //(já que queremos trocar de posição com o ultimo elemento do
     //vetor, depois com o penúltimo, ...)
-    for(int i = 0; i < tamanho; tamanho--){
+    while(tamanho != 1){
 
         double maior_val = 0;
         int index_maior_val = 0;
@@ -158,9 +159,11 @@ void ordena(VINHO *arr, int tamanho, char *caracteristica){
         }
 
         //tendo a posição da maior chave, podemos efetuar a troca
-        VINHO aux = arr[tamanho];
-        arr[tamanho] = arr[index_maior_val];
+        VINHO aux = arr[tamanho-1];
+        arr[tamanho-1] = arr[index_maior_val];
         arr[index_maior_val] = aux;
+
+        tamanho --;
 
     }
 

@@ -46,9 +46,12 @@ int main(){
     }
     fclose(arq);
 
-    
+    printa_vinhos(arr, tam_vetor);
     char caracteristica[20];
     scanf("%s", caracteristica);
+
+    ordena(arr, tam_vetor, caracteristica);
+    printa_vinhos(arr, tam_vetor);
     
 
     

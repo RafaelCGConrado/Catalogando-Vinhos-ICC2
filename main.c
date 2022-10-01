@@ -6,6 +6,7 @@
 
 int main(){
     
+    //RECEBENDO O NOME DO ARQUIVO, CRIANDO O VETOR DE VINHOS
     char nome_arquivo[20];
     scanf("%s", nome_arquivo);
     FILE *arq = fopen(nome_arquivo, "r");
@@ -15,7 +16,8 @@ int main(){
 
     int tam_vetor = 0;
 
-
+    //LENDO LINHA A LINHA (DESCONSIDERANDO A PRIMEIRA)
+    //E ARMAZENANDO CADA VINHO NO VETOR
     char *str = readline(arq);
     char *token;
     while(!feof(arq)){
@@ -53,8 +55,12 @@ int main(){
     char caracteristica[20];
     double chave;
 
+    //RECEBENDO A QUANTIDADE DE BUSCAS QUE SERÃO FEITAS
     scanf("%d", &n);
 
+
+    //RECEBENDO A CARACTERISTICA E CHAVE BUSCADA, ORDENANDO E DEPOIS
+    //EFETUANDO A BUSCA
     for(int i = 0; i < n; i++){
         scanf("%s", caracteristica);
         scanf("%lf", &chave);
@@ -70,10 +76,6 @@ int main(){
 
     }
 
-
-
-
-    
     free(arr);
 
     return 0;

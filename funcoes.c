@@ -175,12 +175,18 @@ void ordena(VINHO *arr, int tamanho, char *caracteristica){
 
 
 int busca_bin(VINHO *arr, int inicio, int fim, double chave, char *caracteristica, int *qtd){
-
+    //definimos o meio do array
     int centro = (int) (inicio + fim) / 2;
     
-
+    //se achamos a chave buscada, iniciamos outro processo:
+    //a contagem da quantidade de vinhos com a mesma chave
+    //e a busca pela primeira ocorrência dela
     if(chave == compara_caracteristica(caracteristica, arr, centro)){
         int i = centro, menor_chave = centro, count = 0;
+        //de forma geral, percorremos o vetor pela esquerda e pela direita,
+        //aumentando um contador a cada encontro
+        //e também registrando qual a primeira ocorrência da
+        //chave em questão.
         while(i >= inicio){
 
             if(chave == compara_caracteristica(caracteristica, arr, i)){
@@ -215,7 +221,7 @@ int busca_bin(VINHO *arr, int inicio, int fim, double chave, char *caracteristic
 }
 
 void printa(VINHO *arr, int i){
-    printf("ID: %d, Citric Acid: %lf, Residual Sugar: %lf, Density: %lf, pH: %lf, Alcohol: %lf\n", 
+    printf("ID: %d, Citric Acid: %.5lf, Residual Sugar %.5lf, Density %.5lf, pH %.5lf, Alcohol %.5lf\n", 
     arr[i].id, arr[i].citric_acid, arr[i].residual_sugar, arr[i].density, arr[i].pH, arr[i].alcohol);
 
 }
